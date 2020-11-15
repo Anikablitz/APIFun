@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+<title>
+Money Conversion API
+</title>
+
+<style>
+body, html, .box, #select {
+font-size: 30px;
+font-family: 'Comic', sans-serif;
+}
+
+#column {
+float: left;
+width: 50% ;
+padding-top: 10px;
+}
+* {
+box-sizing: border-box;
+}
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+.button {
+border: black;
+background-color: black;
+border-radius: 30px;
+color: white;
+font-size: 20px;
+padding: 20px;
+padding-left: 50px;
+padding-right: 50px;
+}
+select {
+min-width: 200px;
+margin: 20px;
+}
+.container {
+background-color: white;
+margin: 70px;
+margin-top: 40px;
+padding-top: 10px;
+border-radius: 30px;
+}
+
+</style>
+
+</head>
+<script>
+
+function convert() {
+
+getAmount = document.getElementById("FirstBox").value;
+firstAmount = document.getElementById("select1").value;
+secAmount = document.getElementById("select2").value;
+
+
+request = new XMLHttpRequest(); 
+
+apiKey = 'bad44716d26ad7615e1d';
+firstAmount = encodeURIComponent(firstAmount); 
+secAmount = encodeURIComponent(secAmount);
+var query = firstAmount + "_" + secAmount;
+
+url = 'https://free.currconv.com/api/v7/convert?q=' + query +
+'&compact=ultra&apiKey=' + apiKey;
+
+request.open("GET", url, true);
+
+request.onreadystatechange = function() {
+if (request.readyState == 4 && request.status == 200) {
+data = request.responseText;
+value = JSON.parse(data);
+
+
+if(value[query]) {
+total = value[query] * getAmount; 
+total = total.toFixed(2); 
+document.getElementById("box_2").value = total;
+}
+}
+}
+request.send();
+}
+
+</script>
+
+
+<body>
+<center>
+Money Time!
+<div class="container" style="padding: 5px;">
+<div class="row" style="padding-top: 10px;"> 
+<div class="box1" id="column"> 
+<input type="text" id="FirstBox" class="box" placeholder="First Amount">
+<form>
+<select id="select1" style="width: 20%; font-size: 12px;">
+<option value="USD"> United States Dollar </option>
+<option value="CAD"> Canadian Dollar </option>
+<option value="HKD"> Hong Kong Dollar </option>
+<option value="AUD"> Australian Dollar </option>
+<option value="XCD"> East Caribbean Dollar </option>
+<option value="BBD"> Barbadian Dollar </option>
+<option value="BND"> Brunei Dollar </option>
+<option value="JMD"> Jamaican Dollar </option>
+<option value="NZD"> New Zealand Dollar </option>
+<option value="DKK"> Danish Krone </option>
+<option value="ISK"> Icelandic Króna </option>
+<option value="SEK"> Swedish Krona </option>
+<option value="CZK"> Czech Koruna </option>
+<option value="XAF"> Central African CFA Franc </option>
+<option value="XOF"> West African CFA Franc </option>
+<option value="RWF"> Rwandan Franc </option>
+<option value="HUF"> Hungarian Forint </option>
+<option value="RON"> Romanian Leu </option>
+<option value="PHP"> Philippine Peso </option>
+<option value="IDR"> Indonesian Rupiah </option>
+<option value="INR"> Indian Rupee </option>
+<option value="ALL"> Albanian Lek </option>
+<option value="EUR"> Euro </option>
+
+
+</select>
+</form>
+</input>
+</div>
+<div class="box2" id="column" style="padding-bottom: 30px;">
+<input type="text" id="box_2" class="box">
+<form>
+<select id="select2" style="width: 20%; font-size: 12px;">
+<option value="USD"> United States Dollar </option>
+<option value="CAD"> Canadian Dollar </option>
+<option value="HKD"> Hong Kong Dollar </option>
+<option value="AUD"> Australian Dollar </option>
+<option value="XCD"> East Caribbean Dollar </option>
+<option value="BBD"> Barbadian Dollar </option>
+<option value="BND"> Brunei Dollar </option>
+<option value="JMD"> Jamaican Dollar </option>
+<option value="NZD"> New Zealand Dollar </option>
+<option value="DKK"> Danish Krone </option>
+<option value="ISK"> Icelandic Króna </option>
+<option value="SEK"> Swedish Krona </option>
+<option value="CZK"> Czech Koruna </option>
+<option value="XAF"> Central African CFA Franc </option>
+<option value="XOF"> West African CFA Franc </option>
+<option value="RWF"> Rwandan Franc </option>
+<option value="HUF"> Hungarian Forint </option>
+<option value="RON"> Romanian Leu </option>
+<option value="PHP"> Philippine Peso </option>
+<option value="IDR"> Indonesian Rupiah </option>
+<option value="INR"> Indian Rupee </option>
+<option value="ALL"> Albanian Lek </option>
+<option value="EUR"> Euro </option>
+
+</select>
+</form>
+</input>
+</div>
+<input class="button" type="button" value = "Convert Money"
+onclick="return convert()">
+</input>  <br><br>
+</div>
+</div>
+</div>
+
+<div class="container">
+Describe the API you selected and what it does:
+For my API, I picked a currency converter. For the currency converter, you
+enter can enter a value (and currency type) and see what that value is for a 
+different currency. 
+</div>
+</div>
+
+
+<div class="container">
+Cite the website where you found it: 
+https://www.currencyconverterapi.com
+</div>
+</div>
+
+<div class="container">
+Describe the options you used for the API request:
+First, each calculation takes two currencies that are user entered
+and uses them as parameters in a hyperlink for an API call.
+Then, the API call returns a JSON file/text with the given conversion rate
+between the two curencies. Finally, the code multiplies the conversion rate 
+by the amount that the user enters.
+
+</div>
+</div>
+
+<div class="container">
+Give two applications where this API would be helpful:
+Application 1: Economic health can be represented well by currency rate. This 
+converter could be used for students or researchers to see how well a nation
+is doing economically. 
+<br><br>
+Application 2: When travling, it is very useful to know how much money to either
+bring or spend. Oftentimes, my family uses a google translator but not we 
+could use my code, YAY!
+</div>
+</div>
+
+</center>
+</body>
+</html>
